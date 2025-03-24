@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Request Form</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #860000; /* Light background for contrast */
+    margin: 0;
+    padding: 20px;
+    background-image: url('https://i.imgur.com/VPf1QfS.png'); /* Subtle blood splatter image */
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: linear-gradient(to bottom, #ffffff, #ffffff); /* Softer blood-red gradient */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    border: 2px solid #ffffff; /* Light pinkish-red border */
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #990000; /* Dark red for emphasis */
+    text-shadow: 1px 1px 2px #ffcccc; /* Softer shadow effect */
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-inline {
+    display: flex;
+    gap: 20px; /* Adjust spacing between fields */
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group select {
+    width: 100%;
+}
+
+/* Label Styles */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #b30000; /* Softer red for labels */
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="tel"],
+select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ff6666;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #ffe6e6; /* Light pink background */
+    color: #333;
+}
+
+/* Gender Radio Button Styles */
+.gender-container {
+    margin-bottom: 15px;
+}
+
+.gender-container label {
+    margin-right: 15px;
+    color: #990000;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    padding: 10px;
+    border: 1px solid #ff6666;
+    border-radius: 4px;
+    background-color: #ffe6e6;
+    color: #990000;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Checkbox Styles */
+.dropdown-content label {
+    display: block;
+    padding: 8px 12px;
+}
+
+/* Button Styles */
+button[type="submit"] {
+    padding: 10px;
+    background-color: #b30000; /* Soft red for the button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2); /* Softer glossy effect */
+}
+
+
+
+/* Align Date of Birth and Blood Group in one line */
+.dob-blood-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dob-container {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.blood-group-container {
+    flex: 1;
+}
+
+.gender-phone-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gender-container {
+    flex: 1;
+}
+
+.phone-container {
+    flex: 1;
+    margin-left: 20px;
+}
+   /* Table Styling */
+   table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #b30000;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #ffcccc;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* Responsive Table */
+    @media (max-width: 600px) {
+        table {
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+    }
+
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    button[type="submit"] {
+        font-size: 14px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Request Blood</h2>
+        <form id="bloodRequestForm" action="{{ url_for('requests.submit') }}" method="post">
+            <label for="request_id">Request ID:</label>
+            <input type="text" id="request_id" name="request_id" value="{{request_id}}" readonly>
+
+            <label for="patient_name">Patient Name</label>
+            <input type="text" id="patient_name" name="patient_name" placeholder="Enter patient's name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <small id="emailError" style="color: red;"></small>
+
+
+            <label for="phone">Phone No:</label>
+            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number.">
+
+            <div class="form-group-inline">
+                <div class="form-group">
+                    <label for="bloodgroup">Blood Group</label>
+                    <select id="bloodgroup" name="bloodgroup" required>
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="A1+">A1+</option>
+                <option value="A1-">A1-</option>
+                <option value="A2+">A2+</option>
+                <option value="A2-">A2-</option>
+                <option value="A1B+">A1B+</option>
+                <option value="A1B-">A1B-</option>
+                <option value="A2B+">A2B+</option>
+                <option value="A2B-">A2B-</option>
+                <option value="Bombay">Bombay Blood Group</option>
+                <option value="INRA">INRA</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="quantity">Quantity (Units)</label>
+                    <select id="quantity" name="quantity" required>
+                        <option value="">Select Quantity</option>
+                        <option value="1">1 Unit</option>
+                        <option value="2">2 Units</option>
+                        <option value="3">3 Units</option>
+                        <option value="4">4 Units</option>
+                        <option value="5">5 Units</option>
+                        <option value="6">6 Units</option>
+                        <option value="7">7 Units</option>
+                        <option value="8">8 Units</option>
+                        <option value="9">9 Units</option>
+                    </select>
+                </div>
+            </div>
+            
+            <label for="location">Location</label>
+            <select id="location" name="location" required>
+                <option value="">Select Location</option>
+                <option value="KYN">Kalyan Junction (KYN)</option>
+                <option value="THK">Thakurli (THK)</option>
+                <option value="DI">Dombivli (DI)</option>
+                <option value="KOPR">Kopar (KOPR)</option>
+                <option value="DIVA">Diva Junction (DIVA)</option>
+                <option value="MBQ">Mumbra (MBQ)</option>
+                <option value="KLVA">Kalva (KLVA)</option>
+                <option value="TNA">Thane (TNA)</option>
+                <option value="MLND">Mulund (MLND)</option>
+                <option value="NHU">Nahur (NHU)</option>
+                <option value="BND">Bhandup (BND)</option>
+                <option value="KJMG">Kanjur Marg (KJMG)</option>
+                <option value="VK">Vikhroli (VK)</option>
+                <option value="GC">Ghatkopar (GC)</option>
+                <option value="VVH">Vidyavihar (VVH)</option>
+                <option value="CLA">Kurla Junction (CLA)</option>
+                <option value="SIN">Sion (SIN)</option>
+                <option value="MTN">Matunga (MTN)</option>
+                <option value="DR">Dadar (DR)</option>
+                <option value="PR">Parel (PR)</option>
+                <option value="CRD">Currey Road (CRD)</option>
+                <option value="CHG">Chinchpokli (CHG)</option>
+                <option value="BY">Byculla (BY)</option>
+                <option value="SNRD">Sandhurst Road (SNRD)</option>
+                <option value="MSD">Masjid (MSD)</option>
+                <option value="CSMT">Chhatrapati Shivaji Maharaj Terminus (CSMT)</option>
+            </select>
+
+            <!-- Address field added -->
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter full address" required>
+
+            <button type="submit">Search Donor</button>
+        </form>
+        
+        {% if donors %}
+            <h3>Matching Donors</h3>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Donor ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Blood Group</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for donor in donors %}
+                        <tr>
+                            <td>{{ donor[0] }}</td>  {# Use donor[0], donor[1], donor[2] because fetchall() returns tuples #}
+                            <td>{{ donor[1] }}</td>
+                            <td>{{ donor[2] }}</td>
+                            <td>{{ donor[3] }}</td>  {# Display donor's location #}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No matching donors found for your location.</p>
+        {% endif %}
+        
+
+    </div>
+    <script>
+       const requestId = document.getElementById("request_id");
+       const emailInput = document.getElementById("email");
+
+       function isValidEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // Ensures @ and at least one dot
+        return emailPattern.test(email);
+    }
+        
+        function validateName() {
+            let nameField = document.getElementById("patient_name");
+            let nameError = document.getElementById("nameError");
+            nameField.value = nameField.value.replace(/[^A-Za-z ]/g, '');
+            if (!/^[A-Za-z ]+$/.test(nameField.value)) {
+                nameError.textContent = "Only letters are allowed";
+                return false;
+            }
+            nameError.textContent = "";
+            return true;
+        }
+
+        function validateEmail() {
+    let emailField = document.getElementById("email");
+    let emailError = document.getElementById("emailError");
+    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailPattern.test(emailField.value)) {
+        emailError.textContent = "Enter a valid email address (e.g., name@example.com or name@example.co.in).";
+        return false;
+    }
+
+    emailError.textContent = "";
+    return true;
+}
+
+    document.getElementById("email").addEventListener("input", validateEmail);
+    // Prevent form submission if email is invalid
+document.getElementById("bloodRequestForm").addEventListener("submit", function(event) {
+    if (!validateEmail()) {
+        event.preventDefault(); // Stops form submission
+        alert("Please enter a valid email address before submitting the form.");
+    }
+});
+
+    document.getElementById("bloodRequestForm").addEventListener("submit", function(event) {
+        if (!validateName() || !validatePhone() || !validateAddress() || !validateEmail()) {
+            event.preventDefault();
+        }
+    });
+        
+        function validatePhone() {
+          let phoneField = document.getElementById("phone");
+          let phoneError = document.getElementById("phoneError");
+
+    // Allow only numbers and limit to 10 digits
+    phoneField.value = phoneField.value.replace(/\D/g, '').slice(0, 10);
+
+    if (phoneField.value.length !== 10 || phoneField.value.startsWith("0")) {
+        phoneError.textContent = "Enter a valid 10-digit number (should not start with 0)";
+        return false;
+    }
+
+    phoneError.textContent = "";
+    return true;
+}
+
+
+        function validateAddress() {
+            let addressField = document.getElementById("address");
+            let addressError = document.getElementById("addressError");
+            if (addressField.value.trim() === "") {
+                addressError.textContent = "Address is required";
+                return false;
+            }
+            addressError.textContent = "";
+            return true;
+        }
+        const fields = [
+            { id: "bloodgroup", errorId: "bloodError", message: "Please select your blood group." },
+            
+        ];
+        
+        document.getElementById("patient_name").addEventListener("input", validateName);
+        document.getElementById("phone").addEventListener("input", validatePhone);
+        document.getElementById("address").addEventListener("input", validateAddress);
+        
+        document.getElementById("bloodRequestForm").addEventListener("submit", function(event) {
+            if (!validateName() || !validatePhone() || !validateAddress()) {
+                event.preventDefault();
+            } else {
+                donorIdCounter++;
+                patientIdCounter++;
+                generateIds();
+            }
+        });
+        
+        window.onload = generateIds;
+    </script>
+</body>
+</html>

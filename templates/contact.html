@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Blood Bank</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f7fc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Contact Container */
+        section {
+            max-width: 900px;
+            margin: 100px auto 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #d32f2f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Contact Information Styling */
+        .contact-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 5px solid #d32f2f;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .contact-details {
+            font-size: 1.1rem;
+            color: #444;
+            margin-top: 5px;
+        }
+
+        /* Social Media Links */
+        .social-links {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: white;
+            background: #d32f2f;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #b71c1c;
+        }
+
+        /* Sticky Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            height: 50px;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            section {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .contact-title {
+                font-size: 1.1rem;
+            }
+        }
+        /* General Styles */
+        body {
+    font-family: Arial, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #faf9f9; /* Light background color */
+    color: #333; /* Darker grey text for contrast */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+.header {
+    position:relative;
+    max-width: 1600px;
+    min-width: 400px;
+    width: 100%;
+}
+
+.img {
+    width: 1400px;;
+    height: 500px;
+    object-fit: cover;
+    display:block;
+}
+
+header .logo img {
+    max-width: 150px;
+    height: auto;
+    /*animation: bounce 2s infinite alternate;*/
+}
+
+.body-img {
+    width: 600px;;
+    height: 400px;
+    object-fit: cover;
+    display:block;
+}
+
+/* Overlay for Better Visibility */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+}
+
+header {
+    background: linear-gradient(to right, #8B0000, #FF0000); /* Lighter red gradient */
+    padding: 15px 0;
+    color: #fff;
+    display: flex;
+    justify-content: space-between; /* To space out logo and nav */
+    align-items: center; /* Center items vertically */
+    padding: 0 20px; /* Adjust horizontal padding for spacing */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+header .logo img {
+    max-width: 150px;
+    height: px;
+    /*animation: bounce 2s infinite alternate;*/
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fffefe;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffd1d1; /* Light hover color */
+}
+
+/* Blood Drip Animation */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, #e0291f, transparent); /* Light red drip effect */
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    animation: drip 3s infinite;
+}
+
+@keyframes drip {
+    0%, 100% {
+        height: 20px;
+    }
+    50% {
+        height: 40px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo3.jpg') }}" alt="Bloodlife logo" width="200" height="140">
+            </a>
+        </div>        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                <li><a href="{{ url_for('videos') }}">Videos</a></li>
+                <li><a href="{{ url_for('events.events') }}">Events & Campaigns</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <section id="contact">
+        <h2>We Are Here to Assist You</h2>
+        <p>Feel free to reach out to us through any of the methods below:</p>
+
+        <div class="contact-item" onclick="copyToClipboard('0251-4853126')">
+            <div class="contact-title">📞 Phone</div>
+            <div class="contact-details">0251-4853126 (Click to copy)</div>
+        </div>
+
+        <div class="contact-item" onclick="copyToClipboard('bloodmanagement@healthcarefacility.com')">
+            <div class="contact-title">📧 Email</div>
+            <div class="contact-details">
+                <a href="mailto:bloodmanagement@healthcarefacility.com">bloodmanagement@healthcarefacility.com</a>
+                <br>Click to copy
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-title">📍 Mailing Address</div>
+            <div class="contact-details">
+                Blood Bank Program<br>
+                BloodLife<br>
+                Gorai Street, Fateh Nagar, Noida, 456389
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-title">🌐 Website</div>
+            <div class="contact-details">
+                <a href="http://www.healthcarefacility.com/bloodmanagement" target="_blank">www.healthcarefacility.com/bloodmanagement</a>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">Twitter</a>
+            <a href="#" target="_blank">LinkedIn</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 BloodLife. All Rights Reserved.</p>
+    </footer>
+
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(text + " copied to clipboard!");
+            }).catch(err => {
+                console.error('Error copying text: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>

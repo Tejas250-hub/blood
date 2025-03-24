@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <title>Preloader with Icon</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+      overflow: hidden;
+    }
+
+    #preloader {
+      display: flex;
+      justify-content: space-around;
+      width: 300px;
+      align-items: flex-end;
+    }
+
+    .drop {
+      font-size: 50px;
+      color: #c63201;
+      opacity: 0;
+      animation: dropAnimation 1s ease-in-out infinite;
+      position: relative;
+    }
+
+    .drop:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .drop:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .drop:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes dropAnimation {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Content section (hidden initially) */
+    #content {
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="preloader">
+    <div class="drop">
+      <i class="fa-solid fa-droplet" style="color: #c63201;"></i>
+    </div>
+    <div class="drop">
+      <i class="fa-solid fa-droplet" style="color: #c63201;"></i>
+    </div>
+    <div class="drop">
+      <i class="fa-solid fa-droplet" style="color: #c63201;"></i>
+    </div>
+  </div>
+
+  <div id="content">
+    <h1>Content Loaded</h1>
+  </div>
+
+  <script>
+    // Wait for the animation to finish (2 seconds)
+    setTimeout(function() {
+        window.location.href = "home.html"; // Replace with the actual link to your main page
+    }, 2000);
+</script>
+
+</body>
+</html>

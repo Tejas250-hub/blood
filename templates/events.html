@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Events</title>
+    <style>
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/FinalyearProj/static/images/map1.jpg') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            color: #333;
+            z-index: 1;
+            text-align: center;
+        }
+
+        h1 {
+            color: #d9534f;
+            font-size: 2rem;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #d9534f;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            font-size: 1rem;
+            color: white;
+            background: #d9534f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #c9302c;
+        }
+
+        .results {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-item {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 5px solid #d9534f;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #d9534f;
+        }
+
+        .result-details {
+            margin-top: 5px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            .search-box {
+                flex-direction: column;
+            }
+
+            input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🔍 Find Blood Donation Events</h1>
+        <div class="search-box">
+            <input type="text" id="eventLocationInput" placeholder="Enter Location" />
+            <button onclick="searchEvents()">Search</button>
+        </div>
+        <div id="eventResults" class="results"></div>
+    </div>
+
+    <script>
+        function searchEvents() {
+            const location = document.getElementById("eventLocationInput").value.trim().toLowerCase();
+            const resultsDiv = document.getElementById("eventResults");
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            fetch(`/events/get_events?location=${encodeURIComponent(location)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.events.length > 0) {
+                        data.events.forEach(event => {
+                            const resultItem = document.createElement("div");
+                            resultItem.classList.add('result-item');
+                            resultItem.innerHTML = `
+                                <div class="result-title">${event.name}</div>
+                                <div class="result-details">📅 Date: ${event.event_date}</div>
+                                <div class="result-details">📍 Location: ${event.location}</div>
+                                <div class="result-details">📝 ${event.description}</div>
+                            `;
+                            resultsDiv.appendChild(resultItem);
+                        });
+                    } else {
+                        resultsDiv.innerHTML = "<p>No blood donation events found for this location.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    resultsDiv.innerHTML = "<p>Error fetching data. Please try again later.</p>";
+                });
+        }
+    </script>
+
+</body>
+</html>

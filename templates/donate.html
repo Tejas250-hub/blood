@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
+    <title>Blood Donation Form</title>
+    <style>
+       /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #860000; /* Light background for contrast */
+    margin: 0;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: linear-gradient(to bottom, #ffffff, #ffffff); /* Softer blood-red gradient */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    border: 2px solid #ffffff; /* Light pinkish-red border */
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #990000; /* Dark red for emphasis */
+    text-shadow: 1px 1px 2px #ffcccc; /* Softer shadow effect */
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styles */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #b30000; /* Softer red for labels */
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="tel"],
+select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ff6666;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #ffe6e6; /* Light pink background */
+    color: #333;
+}
+
+/* Gender Radio Button Styles */
+.gender-container {
+    margin-bottom: 15px;
+}
+
+.gender-container label {
+    margin-right: 15px;
+    color: #990000;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    padding: 10px;
+    border: 1px solid #ff6666;
+    border-radius: 4px;
+    background-color: #ffe6e6;
+    color: #990000;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Checkbox Styles */
+.dropdown-content label {
+    display: block;
+    padding: 8px 12px;
+}
+
+/* Button Styles */
+button[type="submit"] {
+    padding: 10px;
+    background-color:#b30000; /* Soft red for the button */
+    color: white;
+    border: none;
+    margin: 20px auto;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2);  /* Softer glossy effect */
+}
+
+
+.submit-container {
+    text-align: center; /* Centers inline elements like the button */
+    margin-top: 20px;
+}
+
+
+/* Align Date of Birth and Blood Group in one line */
+.dob-blood-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dob-container {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.blood-group-container {
+    flex: 1;
+}
+
+.gender-phone-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gender-container {
+    flex: 1;
+}
+
+.phone-container {
+    flex: 1;
+    margin-left: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    button[type="submit"] {
+        font-size: 14px;
+    }
+}
+    
+
+    </style>
+</head>
+<body>
+
+
+    
+<div class="container">
+    <h2>Blood Donation Form</h2>
+    <form id="donationForm" action="{{ url_for('donate.submit') }}" method="post">
+        <label for="donor_id">Donor ID:</label>
+        <input type="text" id="donor_id" name="donor_id" value="{{ donor_id }}"  readonly> <!-- Initial Donor ID -->
+
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+
+        <div class="dob-blood-group">
+            <div class="dob-container">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="blood-group-container">
+                <label for="bloodGroup">Blood Group:</label>
+                <select id="bloodGroup" name="bloodGroup" required>
+                    <option value="" disabled selected>Select your blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="A1+">A1+</option>
+                    <option value="A1-">A1-</option>
+                    <option value="A2+">A2+</option>
+                    <option value="A2-">A2-</option>
+                    <option value="A1B+">A1B+</option>
+                    <option value="A1B-">A1B-</option>
+                    <option value="A2B+">A2B+</option>
+                    <option value="A2B-">A2B-</option>
+                    <option value="Bombay Blood Group">Bombay Blood Group</option>
+                    <option value="INRA">INRA</option>
+                </select>
+            </div>
+        </div>
+
+        <label>Gender:</label>
+        <div class="gender-container">
+            <label><input type="radio" name="gender" value="male" required> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+            <label><input type="radio" name="gender" value="other"> Other</label>
+        </div>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+       
+
+        <label for="phone">Phone No:</label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number.">
+
+        <label for="currentLocation">Current Location:</label>
+        <select id="currentLocation" name="currentLocation" required>
+            <option value="" disabled selected>Select your current location</option>
+            <option value="Kalyan Junction (KYN)">Kalyan Junction (KYN)</option>
+            <option value="Thakurli (THK)">Thakurli (THK)</option>
+            <option value="Dombivli (DI)">Dombivli (DI)</option>
+            <option value="Kopar (KOPR)">Kopar (KOPR)</option>
+            <option value="Diva Junction (DIVA)">Diva Junction (DIVA)</option>
+            <option value="Mumbra (MBQ)">Mumbra (MBQ)</option>
+            <option value="Kalva (KLVA)">Kalva (KLVA)</option>
+            <option value="Thane (TNA)">Thane (TNA)</option>
+            <option value="Mulund (MLND)">Mulund (MLND)</option>
+            <option value="Nahur (NHU)">Nahur (NHU)</option>
+            <option value="Bhandup (BND)">Bhandup (BND)</option>
+            <option value="Kanjur Marg (KJMG)">Kanjur Marg (KJMG)</option>
+            <option value="Vikhroli (VK)">Vikhroli (VK)</option>
+            <option value="Ghatkopar (GC)">Ghatkopar (GC)</option>
+            <option value="Vidyavihar (VVH)">Vidyavihar (VVH)</option>
+            <option value="Kurla Junction (CLA)">Kurla Junction (CLA)</option>
+            <option value="Sion (SIN)">Sion (SIN)</option>
+            <option value="Matunga (MTN)">Matunga (MTN)</option>
+            <option value="Dadar (DR)">Dadar (DR)</option>
+            <option value="Parel (PR)">Parel (PR)</option>
+            <option value="Currey Road (CRD)">Currey Road (CRD)</option>
+            <option value="Chinchpokli (CHG)">Chinchpokli (CHG)</option>
+            <option value="Byculla (BY)">Byculla (BY)</option>
+            <option value="Sandhurst Road (SNRD)">Sandhurst Road (SNRD)</option>
+            <option value="Masjid (MSD)">Masjid (MSD)</option>
+            <option value="Chhatrapati Shivaji Maharaj Terminus (CSMT)">Chhatrapati Shivaji Maharaj Terminus (CSMT)</option>
+        </select>
+
+        <label for="availableLocation">Your Available Location:</label>
+        <select id="availableLocation" name="availableLocation" multiple required>
+            <option value="" disabled selected>Select your current location</option>
+            <option value="Kalyan Junction (KYN)">Kalyan Junction (KYN)</option>
+            <option value="Thakurli (THK)">Thakurli (THK)</option>
+            <option value="Dombivli (DI)">Dombivli (DI)</option>
+            <option value="Kopar (KOPR)">Kopar (KOPR)</option>
+            <option value="Diva Junction (DIVA)">Diva Junction (DIVA)</option>
+            <option value="Mumbra (MBQ)">Mumbra (MBQ)</option>
+            <option value="Kalva (KLVA)">Kalva (KLVA)</option>
+            <option value="Thane (TNA)">Thane (TNA)</option>
+            <option value="Mulund (MLND)">Mulund (MLND)</option>
+            <option value="Nahur (NHU)">Nahur (NHU)</option>
+            <option value="Bhandup (BND)">Bhandup (BND)</option>
+            <option value="Kanjur Marg (KJMG)">Kanjur Marg (KJMG)</option>
+            <option value="Vikhroli (VK)">Vikhroli (VK)</option>
+            <option value="Ghatkopar (GC)">Ghatkopar (GC)</option>
+            <option value="Vidyavihar (VVH)">Vidyavihar (VVH)</option>
+            <option value="Kurla Junction (CLA)">Kurla Junction (CLA)</option>
+            <option value="Sion (SIN)">Sion (SIN)</option>
+            <option value="Matunga (MTN)">Matunga (MTN)</option>
+            <option value="Dadar (DR)">Dadar (DR)</option>
+            <option value="Parel (PR)">Parel (PR)</option>
+            <option value="Currey Road (CRD)">Currey Road (CRD)</option>
+            <option value="Chinchpokli (CHG)">Chinchpokli (CHG)</option>
+            <option value="Byculla (BY)">Byculla (BY)</option>
+            <option value="Sandhurst Road (SNRD)">Sandhurst Road (SNRD)</option>
+            <option value="Masjid (MSD)">Masjid (MSD)</option>
+            <option value="Chhatrapati Shivaji Maharaj Terminus (CSMT)">Chhatrapati Shivaji Maharaj Terminus (CSMT)</option>
+        </select>
+
+        
+
+        <div class="submit-container">
+            
+        <button type="submit" class="submit-button">Submit</button>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
+<script>
+    new MultiSelectTag('availableLocation');  // Initialize multi-select
+
+    const donorIdInput = document.getElementById("donor_id");
+    const nameInput = document.getElementById("fullName");
+    const dobInput = document.getElementById("dob");
+    const emailInput = document.getElementById("email");
+    const phoneInput = document.getElementById("phone");
+
+    // Set min and max date for DOB (18 to 65 years old)
+    const today = new Date();
+    const minAge = new Date(today.getFullYear() - 65, today.getMonth(), today.getDate());
+    const maxAge = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    dobInput.setAttribute("min", minAge.toISOString().split("T")[0]);
+    dobInput.setAttribute("max", maxAge.toISOString().split("T")[0]);
+
+    function isValidEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // Ensures @ and at least one dot
+        return emailPattern.test(email);
+    }
+
+    // Form Validation on Submit
+    document.getElementById("donationForm").addEventListener("submit", function (event) {
+        let isValid = true;
+        const nameRegex = /^[A-Za-z ]{3,}$/;
+
+        // Name Validation
+        if (!nameRegex.test(nameInput.value)) {
+            alert("Enter a valid full name (only letters, min 3 chars).");
+            isValid = false;
+        }
+
+        // Date of Birth Validation (Age 18-65)
+        const birthDate = new Date(dobInput.value);
+        if (dobInput.value === "" || birthDate < minAge || birthDate > maxAge) {
+            alert("You must be between 18 and 65 years old.");
+            isValid = false;
+        }
+
+        // Other Form Validations (Blood Group, Gender, Location)
+        const bloodGroup = document.getElementById("bloodGroup").value;
+        if (bloodGroup === "") {
+            alert("Please select your blood group.");
+            isValid = false;
+        }
+        
+        if (!isValidEmail(emailInput.value)) {
+            alert("Enter a valid email address.");
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+</script>
+</body>
+</html>

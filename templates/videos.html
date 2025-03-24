@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blood Donation Awareness</title>
+    <style>
+        /* General Styles */
+        body {
+    font-family: Arial, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #faf9f9; /* Light background color */
+    color: #333; /* Darker grey text for contrast */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+.footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+/* Header Styling */
+.header {
+    position:relative;
+    max-width: 1600px;
+    min-width: 400px;
+    width: 100%;
+}
+
+.img {
+    width: 1400px;;
+    height: 500px;
+    object-fit: cover;
+    display:block;
+}
+
+header .logo img {
+    max-width: 150px;
+    height: auto;
+    /*animation: bounce 2s infinite alternate;*/
+}
+
+.body-img {
+    width: 600px;;
+    height: 400px;
+    object-fit: cover;
+    display:block;
+}
+
+/* Overlay for Better Visibility */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+}
+
+header {
+    background: linear-gradient(to right, #8B0000, #FF0000); /* Lighter red gradient */
+    padding: 15px 0;
+    color: #fff;
+    display: flex;
+    justify-content: space-between; /* To space out logo and nav */
+    align-items: center; /* Center items vertically */
+    padding: 0 20px; /* Adjust horizontal padding for spacing */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+header .logo img {
+    max-width: 150px;
+    height: px;
+    /*animation: bounce 2s infinite alternate;*/
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fffefe;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffd1d1; /* Light hover color */
+}
+/* Main Section Styles */
+main {
+    padding: 20px;
+    background: #fff; /* White background for the main section */
+}
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+        .video-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .video-item {
+            margin: 15px;
+            width: 45%;
+        }
+        .video-item iframe {
+            width: 100%;
+            height: 315px;
+        }
+  
+footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            height: 50px;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+
+/* Blood Drip Animation */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, #e0291f, transparent); /* Light red drip effect */
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    animation: drip 3s infinite;
+}
+
+@keyframes drip {
+    0%, 100% {
+        height: 20px;
+    }
+    50% {
+        height: 40px;
+    }
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Header with Logo & Navigation -->
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo3.jpg') }}" alt="Bloodlife logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                <li><a href="{{ url_for('videos') }}">Videos</a></li>
+                <li><a href="{{ url_for('events.events') }}">Events & Campaigns</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2 class="section-title">Informational Videos</h2>
+            <div class="video-container">
+                <!-- Video 1 -->
+                <div class="video-item">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/kOISEM6L4xk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                </div>
+
+                <!-- Video 2 -->
+                <div class="video-item">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/fQThGoBdfmc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">How Blood Donation Helps</h2>
+            <p>Blood donation is a simple and vital way to contribute to your community. Donating blood helps save lives, support patients with medical conditions, and provide critical care during emergencies. Your donation can make all the difference in someone's life!</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 BloodLife. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
