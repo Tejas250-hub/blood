@@ -90,9 +90,12 @@
 
         /* Results Display */
         .results {
-            margin-top: 20px;
-            text-align: left;
-        }
+    margin-top: 20px;
+    text-align: left;
+    max-height: 300px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Prevent content from being hidden by scrollbar */
+}
 
         .result-item {
             background: #fff;
