@@ -26,6 +26,35 @@ body {
     border: 2px solid #ffffff; /* Light pinkish-red border */
 }
 
+
+.home-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ffe6e6;
+    color: #860000;
+    padding: 12px 20px; /* Adjusted padding */
+    border: none;
+    border-radius: 15px; /* Rounded rectangle */
+    font-size: 20px; /* Adjusted font size */
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center; /* Align icon and text */
+    justify-content: center;
+    width: auto; /* Auto width based on content */
+    height: 45px;
+    text-align: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.home-button:hover {
+    background-color: #b30000;
+}
+
+
+
+
 /* Heading */
 h2 {
     text-align: center;
@@ -171,6 +200,8 @@ button[type="submit"] {
     flex: 1;
     margin-left: 20px;
 }
+
+
    /* Table Styling */
    table {
         width: 100%;
@@ -235,6 +266,8 @@ button[type="submit"] {
     </style>
 </head>
 <body>
+    <button class="home-button" onclick="goHome()">Home 🏠</button>
+    
     <div class="container">
         <h2>Request Blood</h2>
         <form id="bloodRequestForm" action="{{ url_for('requests.submit') }}" method="post">
@@ -331,6 +364,7 @@ button[type="submit"] {
             <input type="text" id="address" name="address" placeholder="Enter full address" required>
 
             <button type="submit">Search Donor</button>
+        
         </form>
         
         {% if donors %}
@@ -457,8 +491,14 @@ document.getElementById("bloodRequestForm").addEventListener("submit", function(
                 generateIds();
             }
         });
+
+        function goHome() {
+        window.location.href = "{{ url_for('home') }}";  
+    }
         
         window.onload = generateIds;
     </script>
+    
+    
 </body>
 </html>
