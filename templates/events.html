@@ -82,11 +82,16 @@
         button:hover {
             background: #c9302c;
         }
-
+        
         .results {
-            margin-top: 20px;
-            text-align: left;
-        }
+    margin-top: 20px;
+    text-align: left;
+    max-height: 300px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Prevent content from being hidden by scrollbar */
+}
+
+        
 
         .result-item {
             background: #fff;
@@ -108,6 +113,8 @@
             font-size: 1rem;
             color: #555;
         }
+
+       
 
         @media (max-width: 600px) {
             .search-box {
