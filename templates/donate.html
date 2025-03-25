@@ -186,6 +186,13 @@ button[type="submit"] {
 
     
 <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
     <h2>Blood Donation Form</h2>
     <form id="donationForm" action="{{ url_for('donate.submit') }}" method="post">
         <label for="donor_id">Donor ID:</label>

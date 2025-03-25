@@ -8,6 +8,27 @@ SENDER_EMAIL = os.getenv("EMAIL_USER", "tejashree798@gmail.com")  # Replace with
 SENDER_PASSWORD = os.getenv("EMAIL_PASS", "yqfp zjmi syxe oinf")  # Use App Password
 
 # ✅ Function to Send Email to Donor
+def send_registration_email(donor_name, donor_email,donor_id):
+    subject = "Welcome to Our Blood Donation Program!"
+    
+    body = f"""
+    <html>
+    <body>
+        <h2>Welcome, {donor_name}!</h2>
+        <p>Thank you for registering as a blood donor.Your Donor Id is {donor_id}.</p>
+        <p> Your willingness to help others is truly appreciated.</p>
+        <p>We will notify you whenever there is a need for your blood type.</p>
+        <br>
+        <p><b>Stay healthy and save lives!</b></p>
+        <br>
+        <p>Regards,</p>
+        <p>Blood Donation Team</p>
+    </body>
+    </html>
+    """
+    
+    send_email(donor_email, subject, body)
+    print(f"✅ Registration confirmation email sent to {donor_email}")
 def send_email_to_donor(donor_name, donor_email, patient_name, blood_group, hospital, location, contact, request_id, donor_id):
     subject = f"Blood Donation Request for {blood_group} Blood"
 

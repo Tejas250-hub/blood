@@ -1,5 +1,5 @@
 from flask import Flask, flash, redirect, url_for, render_template, request, jsonify,Blueprint
-from backend.send_email import send_email_to_donor, send_email_to_patient
+from backend.send_email import send_registration_email
 import mysql.connector
 
 
@@ -56,6 +56,16 @@ def submit():
         # Insert data into MySQL database
         cursor = db.cursor()
 
+        cursor.execute("SELECT * FROM donors WHERE email = %s", (email,))
+        existing_donor = cursor.fetchone()
+        
+        cursor.fetchall() if cursor.with_rows else None  # Clear unread results
+
+        if existing_donor:
+            cursor.close()
+            flash("⚠️ This email is already registered. Please use a different email or log in.", "warning")
+            return redirect(url_for('donate.donate', _anchor="flash-message")) 
+
         cursor.execute('''INSERT INTO donors (full_name, dob, blood_group, gender, email, phone, current_location, available_location) 
                           VALUES (%s, %s, %s, %s, %s, %s, %s, %s)''', 
                        (full_name, dob, blood_group, gender, email, phone, current_location, available_location))
@@ -63,6 +73,9 @@ def submit():
 
         donor_id = cursor.lastrowid
         cursor.close()
+
+        # ✅ Send registration confirmation email
+        send_registration_email(donor_name=full_name,donor_email= email,donor_id=donor_id)
 
         # Redirect to the index route with the donor_id as a query parameter
         return redirect(url_for('donate.donate', donor_id=donor_id))  # Pass donor_id to the index route
