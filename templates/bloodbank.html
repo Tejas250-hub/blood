@@ -128,6 +128,40 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    fetchBloodBanks(); // Fetch all blood banks on page load
+});
+
+function fetchBloodBanks(location = "") {
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = '<p>Loading blood banks...</p>'; // Show loading message
+
+    fetch(`/bloodbank/get_blood_banks?location=${encodeURIComponent(location)}`)
+        .then(response => response.json())
+        .then(data => {
+            resultsDiv.innerHTML = ""; // Clear previous results
+
+            if (data.blood_banks.length > 0) {
+                data.blood_banks.forEach(facility => {
+                    const resultItem = document.createElement("div");
+                    resultItem.classList.add('result-item');
+                    resultItem.innerHTML = `
+                        <div class="result-title">${facility.name}</div>
+                        <div class="result-address">${facility.address}</div>
+                        <div class="result-phone">📞 ${facility.contact}</div>
+                    `;
+                    resultsDiv.appendChild(resultItem);
+                });
+            } else {
+                resultsDiv.innerHTML = "<p>No blood banks found.</p>";
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            resultsDiv.innerHTML = "<p>Error fetching data. Please try again later.</p>";
+        });
+}
+
         function searchBloodBanks() {
             const location = document.getElementById("locationInput").value.trim().toLowerCase();
             const resultsDiv = document.getElementById("results");

@@ -138,6 +138,9 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    searchEvents(); // Fetch all events when page loads
+});
         function searchEvents() {
             const location = document.getElementById("eventLocationInput").value.trim().toLowerCase();
             const resultsDiv = document.getElementById("eventResults");

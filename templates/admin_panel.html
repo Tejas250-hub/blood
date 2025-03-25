@@ -311,6 +311,19 @@ tr:hover {
     background-color: #e53935;
 }
 
+#updateForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#updateForm label, 
+#updateForm input {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 8px;
+}
+
 /* Responsive design */
 @media (max-width: 1024px) {
     .update-form-container {
@@ -673,8 +686,8 @@ function updateEntry(section, id) {
     fetch(`/get_${section}_by_id/${id}`)  // Fetch data by ID
         .then(response => response.json())
         .then(data => {
-            let formHtml = `<h2>Update ${section.replace('_', ' ').toUpperCase()}</h2>
-                <form id='updateForm' onsubmit='submitUpdate(event, "${section}", ${id})'>`;
+            let titleHtml = `<h2 class="form-title">Update ${section.replace('_', ' ').toUpperCase()}</h2>`;
+            let formHtml = `<form id='updateForm' onsubmit='submitUpdate(event, "${section}", ${id})'>`;
 
             // Generate input fields dynamically
             Object.keys(data).forEach(key => {
@@ -683,8 +696,11 @@ function updateEntry(section, id) {
                     <input type='text' id='${key}' name='${key}' value='${data[key]}' required><br>
                 `;
             });
+
             formHtml += `<button type='submit' class='update-btn'>Update</button></form>`;
-            document.getElementById("dynamicContent").innerHTML = formHtml;
+
+            // Insert title and form properly
+            document.getElementById("dynamicContent").innerHTML = titleHtml + formHtml;
         })
         .catch(error => console.error("Error loading data:", error));
 }

@@ -30,23 +30,26 @@ def home():
 # Route: Fetch Events by Location (API)
 @events_bp.route('/get_events', methods=['GET'])
 def get_events():
-    location = request.args.get('location', '').lower()
+   
+   location = request.args.get('location', '').lower()
 
-    if not location:
-        return jsonify({"events": []})
+   if location:  # If location is provided, filter results
+       query = "SELECT name, event_date, location, description FROM events WHERE LOWER(location) LIKE %s"
+       cursor.execute(query, ('%' + location + '%',))
+   else:  # If no location is provided, return all events
+       query = "SELECT name, event_date, location, description FROM events"
+       cursor.execute(query)
 
-    query = "SELECT name, event_date, location, description FROM events WHERE LOWER(location) LIKE %s"
-    cursor.execute(query, ('%' + location + '%',))
-    events = cursor.fetchall()
+   events = cursor.fetchall()
 
-    event_list = [{
+   event_list = [{
         "name": event[0],
         "event_date": event[1].strftime('%Y-%m-%d'),  # Convert date format
         "location": event[2],
         "description": event[3]
     } for event in events]
 
-    return jsonify({"events": event_list})
+   return jsonify({"events": event_list})
 app.register_blueprint(events_bp, url_prefix='/events')
 
 @app.route('/')

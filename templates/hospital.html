@@ -159,11 +159,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function fetchHospitals(location = "") {
     const resultsDiv = document.getElementById("results");
-    resultsDiv.innerHTML = ''; // Clear previous results
+    resultsDiv.innerHTML = '<p>Loading hospitals...</p>'; // Clear previous results
 
     fetch(`/hospital/get_hospital?location=${encodeURIComponent(location)}`)
         .then(response => response.json())
         .then(data => {
+            resultsDiv.innerHTML = "";
             if (data.hospitals.length > 0) {
                 data.hospitals.forEach(facility => {
                     const resultItem = document.createElement("div");
@@ -186,7 +187,7 @@ function fetchHospitals(location = "") {
 }
 
 function searchFacilities() {
-    const location = document.getElementById("locationInput").value.trim().toLowerCase();
+    const location = document.getElementById("locationInput").value.trim();
     fetchHospitals(location); // Fetch filtered results
 }
 

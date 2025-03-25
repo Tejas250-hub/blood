@@ -32,13 +32,14 @@ def home():
 def get_blood_banks():
     location = request.args.get('location', '').strip().lower()
 
-    if not location:
-        return jsonify({"blood_banks": []})  # Return empty list if no location is entered
+    if location:  # If location is provided, filter the results
+        query = "SELECT name, address, contact FROM blood_banks WHERE LOWER(location) LIKE %s"
+        cursor.execute(query, ('%' + location + '%',))
+    else:  # If no location is provided, return all blood banks
+        query = "SELECT name, address, contact FROM blood_banks"
+        cursor.execute(query)
 
-    query = "SELECT name, address, contact FROM blood_banks WHERE LOWER(location) LIKE %s"
-    cursor.execute(query, ('%' + location + '%',))
     blood_banks = cursor.fetchall()
-
     bloodbank_list = [{"name": b[0], "address": b[1], "contact": b[2]} for b in blood_banks]
 
     return jsonify({"blood_banks": bloodbank_list})
