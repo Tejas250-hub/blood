@@ -7,7 +7,7 @@ from backend.events import events_bp
 from backend.hospital import hospital_bp
 from backend.requests import requests_bp
 from backend.send_email import  send_email_to_patient
-
+#commit
 # Configure MySQL
 db = mysql.connector.connect(
     host="localhost",
